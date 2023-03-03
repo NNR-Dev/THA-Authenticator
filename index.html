@@ -1,0 +1,36 @@
+<html>
+<head>
+    <title>Twitch Hotkey Assistant Authenticator</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+    
+    
+    <div id="access_token"></div>
+
+    <script type="text/javascript">
+        // These are set for the GitHub Pages Example
+        // Substitute as needed
+        var client_id = 'snbnlpo27abzy10fsg82bqqly26f80';
+        var redirect = 'https://okactuallyrob.github.io/Twitch-Authenticator/';
+
+        //document.getElementById('authorize_public').setAttribute('href', 'https://id.twitch.tv/oauth2/authorize?client_id=' + client_id + '&redirect_uri=' + encodeURIComponent(redirect) + '&response_type=token');
+        //document.getElementById('authorize_email').setAttribute('href', 'https://id.twitch.tv/oauth2/authorize?client_id=' + client_id + '&redirect_uri=' + encodeURIComponent(redirect) + '&response_type=token&scope=channel:read:redemptions'); //chat:read'); //channel:read:redemptions moderator:read:shield_mode
+        document.getElementById('access_token').textContent = '';
+
+        if (document.location.hash && document.location.hash != '') {
+            var parsedHash = new URLSearchParams(window.location.hash.slice(1));
+            if (parsedHash.get('access_token')) {
+                var access_token = parsedHash.get('access_token');
+                document.getElementById('access_token').textContent = 'Please paste the following access key into Twitch Hotkey Assistant (you can close this page now): ' + access_token;
+            }
+        } else if (document.location.search && document.location.search != '') {
+            var parsedParams = new URLSearchParams(window.location.search);
+            if (parsedParams.get('error_description')) {
+                document.getElementById('access_token').textContent = parsedParams.get('error') + ' - ' + parsedParams.get('error_description');
+            }
+        }
+            
+    </script>
+</body>
+</html>
